@@ -591,5 +591,4 @@ InitTestScene*.unity
 *.tlog
 
 # End of https://www.toptal.com/developers/gitignore/api/unity,csharp,visualstudio
-LD48/Library/PackageCache/
-LD48/Library/ShaderCache/
+LD48/Library/
