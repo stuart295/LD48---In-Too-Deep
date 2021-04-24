@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 767840864}
   - component: {fileID: 767840863}
   - component: {fileID: 767840862}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 976097167}
   - component: {fileID: 976097166}
   - component: {fileID: 976097165}
+  - component: {fileID: 976097168}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -263,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSize: {x: 1, y: 1}
   cellOffset: {x: 0, y: 0}
+  spacePortPref: {fileID: 6163455852967585752, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
 --- !u!4 &976097167
 Transform:
   m_ObjectHideFlags: 0
@@ -277,6 +279,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &976097168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976097164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54f408242effac48a65f75b49a5014e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingOptions:
+  - {fileID: 11400000, guid: 9e9f780e993f8e842b6e0413a99ad3d3, type: 2}
 --- !u!1 &977962341
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +519,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!23 &1503388266 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8890156331703676016, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+  m_PrefabInstance: {fileID: 8890156331042393626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6163455853047064564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -513,6 +534,10 @@ PrefabInstance:
     - target: {fileID: 6163455852967585752, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
       propertyPath: m_Name
       value: SpacePort
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163455852967585752, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6163455852967585753, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
       propertyPath: m_RootOrder
@@ -567,6 +592,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1124488858, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+      propertyPath: mainRenderer
+      value: 
+      objectReference: {fileID: 1503388266}
+    - target: {fileID: 1124488858, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+      propertyPath: placingColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124488858, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+      propertyPath: invalidPlacementColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
     - target: {fileID: 8890156332133292160, guid: 649c1567d232ac343a53276be7d74996, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -614,6 +651,10 @@ PrefabInstance:
     - target: {fileID: 8890156332133292163, guid: 649c1567d232ac343a53276be7d74996, type: 3}
       propertyPath: m_Name
       value: RailPiece
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890156332133292163, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 649c1567d232ac343a53276be7d74996, type: 3}

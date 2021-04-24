@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,32 +7,35 @@ public class PlayerController : MonoBehaviour
 {
 
     private GameController gm;
+    private BuildController build;
 
     private void Awake() {
         gm = GetComponent<GameController>();
+        build = GetComponent<BuildController>();
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        build.StartPlacingBuilding(build.buildingOptions[0]);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
+        if (build.IsPlacing()) {
+            UpdateBuildInput();
+        }
 
-        //if (Physics.Raycast(ray, out hit)) {
-        //    Vector3 hitPoint = hit.point;
-        //    hitPoint.y = 0f;
+    }
 
-        //    Vector3 gridPos = grid.GetSnappedPos(hitPoint);
-
-        //    test.transform.position = gridPos;
-        //}
-
+    private void UpdateBuildInput() {
+        if (Input.GetMouseButtonDown(0)) {
+            build.FinishPlacingBuilding();
+        }
+        else if (Input.GetMouseButtonDown(1)) {
+            build.CancelPlacingBuilding();
+        }
     }
 }
