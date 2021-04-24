@@ -36,20 +36,20 @@ public class Building : MonoBehaviour
     }
 
 
-    public void StartPlacing() {
+    public virtual void StartPlacing() {
         placing = true;
         mainRenderer.material.color = placingColor;
         mainRenderer.material.renderQueue = 3050;
     }
 
-    public void FinishPlacing() {
+    public virtual void FinishPlacing() {
         placing = false;
         gm.Grid.addBuilding(this);
         mainRenderer.material.color = Color.white;
         mainRenderer.material.renderQueue = 3000;
     }
 
-    public void CancelPlacing() {
+    public virtual void CancelPlacing() {
         placing = false;
         Destroy(gameObject);
     } 

@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 88293421}
   m_Layer: 0
   m_Name: SpacePort
-  m_TagString: Untagged
+  m_TagString: SpacePort
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,3 +143,4 @@ MonoBehaviour:
   invalidPlacementColor: {r: 1, g: 0, b: 0, a: 1}
   placingColor: {r: 1, g: 1, b: 1, a: 1}
   gridSize: {x: 3, y: 3}
+  minable: 0

@@ -14,15 +14,24 @@ public class GameController : MonoBehaviour
     public GameObject spacePortPref;
     public GameObject resourceDepositPref;
 
+    [Header("Other")]
+    public bool debugMode = true;
+
+    //[HideInInspector]
+    public HashSet<Miner> miners;
+
     private BuildGrid grid;
 
     private Building spacePort;
+
+
 
     public BuildGrid Grid { get => grid;}
 
 
     private void Awake() {
-        grid = new BuildGrid(cellSize, cellOffset);
+        grid = new BuildGrid();
+        miners = new HashSet<Miner>();
     }
 
     // Start is called before the first frame update
@@ -36,7 +45,7 @@ public class GameController : MonoBehaviour
         spacePort = SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.transform.rotation);
 
         //Resource deposits
-        SpawnBuilding(resourceDepositPref, new Vector3(9, 0, 3), resourceDepositPref.transform.rotation);
+        SpawnBuilding(resourceDepositPref, new Vector3(5, 0, 3), resourceDepositPref.transform.rotation);
         //TODO
 
     }
@@ -55,4 +64,31 @@ public class GameController : MonoBehaviour
     {
         
     }
+
+
+    //TODO Switch to check from spaceport outwards
+    public void RecheckMiners() {
+        foreach (Miner miner in miners) {
+            miner.CheckSPConnection();
+        }
+    }
+
+    private void OnDrawGizmos() {
+        #if UNITY_EDITOR
+        if (debugMode && miners != null) {
+       
+            foreach (Miner miner in miners) {
+                if (miner.connected) {
+                    Gizmos.color = Color.green;
+                }
+                else {
+                    Gizmos.color = Color.red;
+                }
+
+                Gizmos.DrawSphere(miner.transform.position + new Vector3(0, 3f, 0), 0.5f);
+            }
+        }
+        #endif
+    }
+
 }

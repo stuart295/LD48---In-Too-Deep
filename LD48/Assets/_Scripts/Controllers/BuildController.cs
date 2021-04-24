@@ -9,6 +9,7 @@ public class BuildController : MonoBehaviour
     public List<BuildingSettings> buildingOptions;
 
     private Building currentBuilding = null;
+    private BuildingSettings currentBuildingSettings;
     private GameController gm;
    
     private void Awake() {
@@ -45,11 +46,13 @@ public class BuildController : MonoBehaviour
         currentBuilding = buildingGo.GetComponent<Building>();
         currentBuilding.Initialize(gm);
         currentBuilding.StartPlacing();
+        currentBuildingSettings = buildingSettings;
     }
 
     public void CancelPlacingBuilding() {
         currentBuilding.CancelPlacing();
         currentBuilding = null;
+        currentBuildingSettings = null;
     }
 
 
@@ -57,7 +60,7 @@ public class BuildController : MonoBehaviour
         if (!currentBuilding.CanPlace()) return;
 
         currentBuilding.FinishPlacing();
-        currentBuilding = null;
+        StartPlacingBuilding(currentBuildingSettings);
     }
 
 }
