@@ -1,13 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
+    [Header("Movement settings")]
     public float panSpeed = 1f;
     public float mouseEdgeDistanceThreshold = 0.0f;
+
+    [Header("Boundaries")]
+    public Vector3 minBoundary;
+    public Vector3 maxBoundary;
 
     private void Awake() {
         Cursor.lockState = CursorLockMode.Confined;
@@ -36,6 +41,10 @@ public class CameraController : MonoBehaviour
 
     private void MoveCamera(Vector2 moveDirection) {
         Vector3 targPos = transform.position + new Vector3(moveDirection.x, 0f, moveDirection.y) ;
+        float height = targPos.y;
+        targPos = Vector3.Max(minBoundary, Vector3.Min(maxBoundary, targPos));
+        targPos.y = height;
+
         transform.position = Vector3.MoveTowards(transform.position, targPos, Time.deltaTime * panSpeed);
     }
 
@@ -56,4 +65,18 @@ public class CameraController : MonoBehaviour
 
         return moveDir;
     }
+
+
+    private void OnDrawGizmos() {
+        #if UNITY_EDITOR
+        if (Selection.Contains(gameObject)) {
+            Gizmos.color = Color.green;
+            Vector3 center = (minBoundary + maxBoundary) / 2f;
+            Vector3 size = maxBoundary - minBoundary;
+
+            Gizmos.DrawWireCube(center, size);
+        }
+        #endif
+    }
+
 }
