@@ -593,3 +593,4 @@ InitTestScene*.unity
 # End of https://www.toptal.com/developers/gitignore/api/unity,csharp,visualstudio
 LD48/Library/
 LD48/Temp/
+LD48/Build/

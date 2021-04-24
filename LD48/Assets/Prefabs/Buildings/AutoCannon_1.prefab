@@ -324,9 +324,8 @@ MonoBehaviour:
   invalidPlacementColor: {r: 1, g: 0, b: 0, a: 1}
   placingColor: {r: 1, g: 1, b: 1, a: 1}
   gridSize: {x: 1, y: 1}
-  minable: 0
   health: 3
-  attackRange: 10
+  attackRange: 15
   attackDamage: 1
   attackDelay: 0.5
   turret: {fileID: 4395318672890326761}

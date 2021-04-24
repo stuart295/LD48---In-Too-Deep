@@ -24,22 +24,25 @@ public class EnemySpawner : MonoBehaviour
     private float lastSpawnTime = 0f;
     private float nextSpawnTime = 0f;
 
+    private GameController gm;
+
 
 
 
     // Start is called before the first frame update
     void Awake() {
         lastSpawnTime = Time.time;
+        gm = GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update() {
         if (Time.time < beginDelay || furtherestBuildZ < minBuildZ) return;
 
-        if (nextSpawnTime == 0f) nextSpawnTime = Time.time + spawnDelay.Evaluate(Time.time);
+        if (nextSpawnTime == 0f) nextSpawnTime = Time.time + spawnDelay.Evaluate(Time.time/gm.timeLimit);
 
         if (nextSpawnTime <= Time.time) {
-            nextSpawnTime = Time.time + spawnDelay.Evaluate(Time.time);
+            nextSpawnTime = Time.time + spawnDelay.Evaluate(Time.time / gm.timeLimit);
             SpawnEnemies();
         }
 
@@ -50,7 +53,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPoint = GetSpawnPoint();
         Vector3 destination = new Vector3(Random.Range(-5, 5), 0, spawnPoint.z + Random.Range(-5,5));
 
-        int spawnCount = (int)spawnAmount.Evaluate(Time.time);
+        int spawnCount = (int)spawnAmount.Evaluate(Time.time / gm.timeLimit);
 
         for (int i = 0; i < spawnCount; i++) {
             Vector2 offset = Random.insideUnitCircle * spawnRadius;

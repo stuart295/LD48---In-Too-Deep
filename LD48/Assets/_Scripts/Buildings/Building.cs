@@ -14,9 +14,7 @@ public class Building : MonoBehaviour
     public Vector2 gridSize = Vector2.one;
 
     [Header("Building settings")]
-    public bool minable = false;
     public float health = 1f;
-
 
     protected bool placing = false;
     protected GameController gm;

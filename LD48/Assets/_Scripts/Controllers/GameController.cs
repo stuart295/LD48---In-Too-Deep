@@ -16,21 +16,29 @@ public class GameController : MonoBehaviour
 
     [Header("Buildings")]
     public BuildingSettings spacePortPref;
-    public BuildingSettings resourceDepositPref;
+    public BuildingSettings creditResourceDepositPref;
+    public BuildingSettings scoreResourceDepositPref;
     public BuildingSettings minerPref;
     public BuildingSettings pipePref;
 
-    [Header("Resource layout")]
-    public int totalResources = 10;
-    public float resourceSpacingMin = 1f;
-    public float resourceSpacingMax = 1f;
+    [Header("Score resource layout")]
+    public int totalScoreResources = 20;
+    public float scoreResourceSpacingMin = 1f;
+    public float scoreResourceSpacingMax = 1f;
+
+    [Header("Credit resource layout")]
+    public int totalCreditResources = 5;
+    public float creditResourceSpacingMin = 1f;
+    public float creditResourceSpacingMax = 1f;
+
     public float resourceHorizontalVariation = 1f;
 
     [Header("Other")]
     public bool debugMode = true;
 
     //[HideInInspector]
-    public HashSet<Miner> miners;
+    public HashSet<Resource> resources;
+
 
     private BuildGrid grid;
     private BuildController build;
@@ -47,11 +55,12 @@ public class GameController : MonoBehaviour
 
     private void Awake() {
         grid = new BuildGrid();
-        miners = new HashSet<Miner>();
+        resources = new HashSet<Resource>();
         remainingTime = timeLimit;
         build = GetComponent<BuildController>();
         spawner = GetComponent<EnemySpawner>();
         ui = GetComponent<UIController>();
+        credits = startingCredits;
     }
 
     // Start is called before the first frame update
@@ -64,10 +73,13 @@ public class GameController : MonoBehaviour
         //Space port
         SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.prefab.transform.rotation);
 
-        //Resource deposits
-        SpawnBuilding(resourceDepositPref, new Vector3(2, 0, 6) , resourceDepositPref.prefab.transform.rotation);
+        //Starting credits
+        SpawnBuilding(creditResourceDepositPref, new Vector3(2, 0, 6), creditResourceDepositPref.prefab.transform.rotation);
         SpawnBuilding(minerPref, new Vector3(2, 0, 6), minerPref.prefab.transform.rotation);
-        SpawnResources();
+
+        //Resource deposits
+        SpawnResources(scoreResourceDepositPref, totalScoreResources, scoreResourceSpacingMin, scoreResourceSpacingMax);
+        SpawnResources(creditResourceDepositPref, totalCreditResources, creditResourceSpacingMin, creditResourceSpacingMax);
 
         //Pipes to first resource
         for (int i = 0; i < 4; i++) {
@@ -76,25 +88,37 @@ public class GameController : MonoBehaviour
         
     }
 
-    private void SpawnResources() {
+    private void SpawnResources(BuildingSettings building, int count, float spacingMin, float spacingMax) {
 
         Vector3 curPoint = Vector3.zero;
 
-        for (int i = 0; i < totalResources; i++) {
+        for (int i = 0; i < count; i++) {
             float horPos = UnityEngine.Random.Range(-resourceHorizontalVariation, resourceHorizontalVariation);
-            float vertPos = UnityEngine.Random.Range(curPoint.z + resourceSpacingMin, curPoint.z + resourceSpacingMax);
+            float vertPos = UnityEngine.Random.Range(curPoint.z + spacingMin, curPoint.z + spacingMax);
             curPoint = new Vector3(horPos, 0, vertPos);
-            SpawnBuilding(resourceDepositPref, curPoint, resourceDepositPref.prefab.transform.rotation);
+            SpawnBuilding(building, curPoint, building.prefab.transform.rotation);
         }
 
     }
 
-    private Building SpawnBuilding(BuildingSettings buildingSettings, Vector3 position, Quaternion rotation) {
+    private void SpawnBuilding(BuildingSettings buildingSettings, Vector3 position, Quaternion rotation) {
+        List<Building> buildingsAtPos = grid.GetBuildingsAtWorldPos(position);
+
+        if (buildingsAtPos.Count > 0) {
+            if (buildingSettings.prefab.GetComponent<Building>() is Miner) {
+                if (buildingsAtPos.Count > 1 || !(buildingsAtPos[0] is Resource)) return;
+            }
+            else {
+                return;
+            }
+        }
+
+        
+
         GameObject buildingGo = Instantiate(buildingSettings.prefab, Grid.GetGridPos(position), rotation);
         Building building = buildingGo.GetComponent<Building>();
         building.Initialize(this, buildingSettings);
         building.FinishPlacing();
-        return building;
     }
 
 
@@ -120,34 +144,36 @@ public class GameController : MonoBehaviour
 
     //TODO Switch to check from spaceport outwards
     public void RecheckMiners() {
-        foreach (Miner miner in miners) {
-            miner.CheckSPConnection();
+        foreach (Resource resource in resources) {
+            if (resource.miner == null) return;
+            resource.miner.CheckSPConnection();
         }
     }
 
     public int GetScore() {
         int score = 0;
-        foreach (Miner miner in miners) {
-            if (miner.Connected) score += 1;
+        foreach (Resource resource in resources) {
+            Miner miner = resource.miner;
+            if (miner != null && miner.Connected) score += resource.scoreValue ;
         }
         return score;
     }
 
     private void OnDrawGizmos() {
         #if UNITY_EDITOR
-        if (debugMode && miners != null) {
+        if (debugMode && resources != null) {
        
-            foreach (Miner miner in miners) {
-                if (miner == null || miner.gameObject == null) return;
+            foreach (Resource resource in resources) {
+                if (resource == null || resource.miner == null || resource.gameObject == null) return;
 
-                if (miner.Connected) {
+                if (resource.miner.Connected) {
                     Gizmos.color = Color.green;
                 }
                 else {
                     Gizmos.color = Color.red;
                 }
 
-                Gizmos.DrawSphere(miner.transform.position + new Vector3(0, 3f, 0), 0.5f);
+                Gizmos.DrawSphere(resource.transform.position + new Vector3(0, 3f, 0), 0.5f);
             }
         }
         #endif

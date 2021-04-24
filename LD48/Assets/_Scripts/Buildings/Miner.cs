@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Miner : Building
 {
-    public int creditsPerTick = 1; 
     public float tickDelay = 1f;
 
     private bool connected;
     private float lastTick;
+    private Resource resource;
 
     public bool Connected { get => connected;  }
 
@@ -18,12 +18,27 @@ public class Miner : Building
         List<Building> onTopOf = gm.Grid.GetBuildingsAtWorldPos(transform.position);
         if (onTopOf == null || onTopOf.Count != 1) return false;
 
-        return onTopOf[0].minable;
+        return onTopOf[0]is Resource;
     }
 
     public override void FinishPlacing() {
         base.FinishPlacing();
-        gm.miners.Add(this);
+
+        List<Building> onTopOf = gm.Grid.GetBuildingsAtWorldPos(transform.position);
+        foreach (Building building in onTopOf) {
+            if (building is Resource) {
+                resource = (Resource)building;
+                break;
+            }
+        }
+
+        if (resource == null) {
+            Debug.LogError("No resource found for miner!", gameObject);
+            return;
+        }
+
+        resource.miner = this;
+        gm.resources.Add(resource);
         CheckSPConnection();
         lastTick = Time.time;
     }
@@ -75,7 +90,12 @@ public class Miner : Building
 
         lastTick = Time.time;
 
-        gm.Credits += creditsPerTick;
+        gm.Credits += resource.creditsPerTick;
         //TODO add effect
+    }
+
+    protected override void OnDeath() {
+        base.OnDeath();
+        gm.resources.Remove(resource);
     }
 }

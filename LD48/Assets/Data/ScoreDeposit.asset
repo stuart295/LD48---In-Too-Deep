@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7387bc299d4460047b08127ea861140c, type: 3}
-  m_Name: Miner
+  m_Name: ScoreDeposit
   m_EditorClassIdentifier: 
-  buildingName: Miner
-  prefab: {fileID: 2351245687050768237, guid: 70173428f3227154f8a25934d9f367c5, type: 3}
-  icon: {fileID: 21300000, guid: 528501adc3e36f34a9194575eaacf998, type: 3}
-  cost: 80
+  buildingName: Hydrogen deposit
+  prefab: {fileID: 8535084681749942704, guid: 0242a569c369542419f82da54a7a3aee, type: 3}
+  icon: {fileID: 21300000, guid: 4a517d5fcde3be14aab1085cad0cc34a, type: 3}
+  cost: 75
