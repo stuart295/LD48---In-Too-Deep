@@ -11,9 +11,11 @@ public class BuildController : MonoBehaviour
     private Building currentBuilding = null;
     private BuildingSettings currentBuildingSettings;
     private GameController gm;
+    private EnemySpawner spawner;
    
     private void Awake() {
         gm = GetComponent<GameController>();
+        spawner = GetComponent<EnemySpawner>();
     }
 
     // Start is called before the first frame update
@@ -58,6 +60,8 @@ public class BuildController : MonoBehaviour
 
     public void FinishPlacingBuilding() {
         if (!currentBuilding.CanPlace()) return;
+
+        spawner.furtherestBuildZ = Mathf.Max(spawner.furtherestBuildZ, currentBuilding.transform.position.z);
 
         currentBuilding.FinishPlacing();
         StartPlacingBuilding(currentBuildingSettings);

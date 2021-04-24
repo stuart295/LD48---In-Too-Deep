@@ -6,6 +6,9 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
+    [Header("Game settings")]
+    public int startingCredits = 100;
+
     [Header("Grid settings")]
     public Vector2 cellSize = Vector2.one;
     public Vector2 cellOffset = Vector2.zero;
@@ -13,6 +16,8 @@ public class GameController : MonoBehaviour
     [Header("Prefabs")]
     public GameObject spacePortPref;
     public GameObject resourceDepositPref;
+    public GameObject minerPref;
+    public GameObject pipePref;
 
     [Header("Resource layout")]
     public int totalResources = 10;
@@ -52,8 +57,15 @@ public class GameController : MonoBehaviour
         spacePort = SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.transform.rotation);
 
         //Resource deposits
+        SpawnBuilding(resourceDepositPref, new Vector3(2, 0, 6) , resourceDepositPref.transform.rotation);
+        SpawnBuilding(minerPref, new Vector3(2, 0, 6), minerPref.transform.rotation);
         SpawnResources();
 
+        //Pipes to first resource
+        for (int i = 0; i < 4; i++) {
+            SpawnBuilding(pipePref, new Vector3(1, 0, 3 + i), pipePref.transform.rotation);
+        }
+        
     }
 
     private void SpawnResources() {
@@ -73,7 +85,7 @@ public class GameController : MonoBehaviour
         GameObject buildingGo = Instantiate(prefab, Grid.GetGridPos(position), rotation);
         Building building = buildingGo.GetComponent<Building>();
         building.Initialize(this);
-        grid.addBuilding(building);
+        building.FinishPlacing();
         return building;
     }
 
@@ -107,6 +119,8 @@ public class GameController : MonoBehaviour
         if (debugMode && miners != null) {
        
             foreach (Miner miner in miners) {
+                if (miner == null || miner.gameObject == null) return;
+
                 if (miner.Connected) {
                     Gizmos.color = Color.green;
                 }

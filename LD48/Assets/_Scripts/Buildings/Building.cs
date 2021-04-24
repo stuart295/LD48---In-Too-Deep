@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,13 +15,19 @@ public class Building : MonoBehaviour
 
     [Header("Building settings")]
     public bool minable = false;
+    public float health = 1f;
 
 
     protected bool placing = false;
     protected GameController gm;
+    protected Color defaultColor = Color.white;
 
     public virtual void Initialize(GameController gm) {
         this.gm = gm;
+    }
+
+    private void Awake() {
+        defaultColor = mainRenderer.material.color;
     }
 
     // Start is called before the first frame update
@@ -45,7 +52,7 @@ public class Building : MonoBehaviour
     public virtual void FinishPlacing() {
         placing = false;
         gm.Grid.addBuilding(this);
-        mainRenderer.material.color = Color.white;
+        mainRenderer.material.color = defaultColor;
         mainRenderer.material.renderQueue = 3000;
     }
 
@@ -70,4 +77,16 @@ public class Building : MonoBehaviour
         return !gm.Grid.IsAreaOccupied(transform.position, gridSize);
     }
 
+    public void TakeDamage(float attackDamage) {
+        health -= attackDamage;
+        Debug.Log(gameObject + " took " + attackDamage + " damage");
+        if (health <= 0) {
+            OnDeath();
+            Destroy(gameObject);
+        }
+    }
+
+    protected virtual void OnDeath() {
+        Debug.Log(gameObject + " destroyed" );
+    }
 }

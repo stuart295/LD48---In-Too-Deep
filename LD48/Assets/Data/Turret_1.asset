@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7387bc299d4460047b08127ea861140c, type: 3}
+  m_Name: Turret_1
+  m_EditorClassIdentifier: 
+  buildingName: Auto Cannon
+  prefab: {fileID: 4395318674216081309, guid: 27a58770b46f1864fa8a1474a745fc23, type: 3}
+  icon: {fileID: 21300000, guid: 4a517d5fcde3be14aab1085cad0cc34a, type: 3}
+  cost: 100
