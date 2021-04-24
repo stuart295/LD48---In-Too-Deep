@@ -12,22 +12,25 @@ public class Building : MonoBehaviour
     [Header("Grid settings")]
     public Vector2 gridSize = Vector2.one;
 
+    [Header("Building settings")]
+    public bool minable = false;
 
-    private bool placing = false;
-    private GameController gm;
 
-    public void Initialize(GameController gm) {
+    protected bool placing = false;
+    protected GameController gm;
+
+    public virtual void Initialize(GameController gm) {
         this.gm = gm;
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         
     }

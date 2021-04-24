@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
 
     [Header("Prefabs")]
     public GameObject spacePortPref;
+    public GameObject resourceDepositPref;
 
     private BuildGrid grid;
 
@@ -32,14 +33,21 @@ public class GameController : MonoBehaviour
 
     private void PlaceStartingBuildings() {
         //Space port
-        GameObject spacePortGo = Instantiate(spacePortPref, Vector3.zero, spacePortPref.transform.rotation);
-        spacePort = spacePortGo.GetComponent<Building>();
-        spacePort.Initialize(this);
-        grid.addBuilding(spacePort);
+        spacePort = SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.transform.rotation);
 
+        //Resource deposits
+        SpawnBuilding(resourceDepositPref, new Vector3(9, 0, 3), resourceDepositPref.transform.rotation);
+        //TODO
 
     }
 
+    private Building SpawnBuilding(GameObject prefab, Vector3 position, Quaternion rotation) {
+        GameObject buildingGo = Instantiate(prefab, position, rotation);
+        Building building = buildingGo.GetComponent<Building>();
+        building.Initialize(this);
+        grid.addBuilding(building);
+        return building;
+    }
 
 
     // Update is called once per frame

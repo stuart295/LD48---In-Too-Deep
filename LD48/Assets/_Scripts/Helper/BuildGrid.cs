@@ -9,12 +9,12 @@ public class BuildGrid
     private Vector2 cellSize = Vector2.one;
     private Vector2 offset = Vector2.zero;
 
-    private Dictionary<Vector3, Building> gridOccupancies;
+    private Dictionary<Vector3, List<Building>> gridOccupancies;
 
     public BuildGrid(Vector2 cellSize, Vector2 offset) {
         this.cellSize = cellSize;
         this.offset = offset;
-        gridOccupancies = new Dictionary<Vector3, Building>();
+        gridOccupancies = new Dictionary<Vector3, List<Building>>();
     }
 
 
@@ -48,6 +48,15 @@ public class BuildGrid
         return Vector3.zero;
     }
 
+    public List<Building> GetBuildingsAtWorldPos(Vector3 worldPos) {
+        Vector3 cellPos = GetGridPos(worldPos);
+        if (gridOccupancies.ContainsKey(cellPos)) {
+            return gridOccupancies[cellPos];
+        }
+
+        return null;
+    }
+
     public bool IsCellOccupied(Vector3 cellPos) {
         return gridOccupancies.ContainsKey(cellPos);
     }
@@ -77,11 +86,11 @@ public class BuildGrid
                 Vector3 cellPos = buildPos + new Vector3(i * cellSize.x, 0f, j * cellSize.y);
 
                 if (IsCellOccupied(cellPos)) {
-                    Debug.LogError("Trying to place building in occupied cell!");
+                    gridOccupancies[cellPos].Add(building);
                     return;
                 }
                 else {
-                    gridOccupancies.Add(cellPos, building);
+                    gridOccupancies.Add(cellPos, new List<Building>() { building });
                 }
             }
         }
