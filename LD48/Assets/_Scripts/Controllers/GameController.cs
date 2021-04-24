@@ -14,6 +14,12 @@ public class GameController : MonoBehaviour
     public GameObject spacePortPref;
     public GameObject resourceDepositPref;
 
+    [Header("Resource layout")]
+    public int totalResources = 10;
+    public float resourceSpacingMin = 1f;
+    public float resourceSpacingMax = 1f;
+    public float resourceHorizontalVariation = 1f;
+
     [Header("Other")]
     public bool debugMode = true;
 
@@ -23,15 +29,16 @@ public class GameController : MonoBehaviour
     private BuildGrid grid;
 
     private Building spacePort;
-
-
+    private int credits = 0;
+    private float lastTick = 0;
 
     public BuildGrid Grid { get => grid;}
-
+    public int Credits { get => credits; set => credits = value; }
 
     private void Awake() {
         grid = new BuildGrid();
         miners = new HashSet<Miner>();
+        lastTick = Time.time;
     }
 
     // Start is called before the first frame update
@@ -45,13 +52,25 @@ public class GameController : MonoBehaviour
         spacePort = SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.transform.rotation);
 
         //Resource deposits
-        SpawnBuilding(resourceDepositPref, new Vector3(5, 0, 3), resourceDepositPref.transform.rotation);
-        //TODO
+        SpawnResources();
+
+    }
+
+    private void SpawnResources() {
+
+        Vector3 curPoint = Vector3.zero;
+
+        for (int i = 0; i < totalResources; i++) {
+            float horPos = UnityEngine.Random.Range(-resourceHorizontalVariation, resourceHorizontalVariation);
+            float vertPos = UnityEngine.Random.Range(curPoint.z + resourceSpacingMin, curPoint.z + resourceSpacingMax);
+            curPoint = new Vector3(horPos, 0, vertPos);
+            SpawnBuilding(resourceDepositPref, curPoint, resourceDepositPref.transform.rotation);
+        }
 
     }
 
     private Building SpawnBuilding(GameObject prefab, Vector3 position, Quaternion rotation) {
-        GameObject buildingGo = Instantiate(prefab, position, rotation);
+        GameObject buildingGo = Instantiate(prefab, Grid.GetGridPos(position), rotation);
         Building building = buildingGo.GetComponent<Building>();
         building.Initialize(this);
         grid.addBuilding(building);
@@ -65,6 +84,8 @@ public class GameController : MonoBehaviour
         
     }
 
+    
+
 
     //TODO Switch to check from spaceport outwards
     public void RecheckMiners() {
@@ -73,12 +94,20 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public int GetScore() {
+        int score = 0;
+        foreach (Miner miner in miners) {
+            if (miner.Connected) score += 1;
+        }
+        return score;
+    }
+
     private void OnDrawGizmos() {
         #if UNITY_EDITOR
         if (debugMode && miners != null) {
        
             foreach (Miner miner in miners) {
-                if (miner.connected) {
+                if (miner.Connected) {
                     Gizmos.color = Color.green;
                 }
                 else {

@@ -10,14 +10,18 @@ public class UIController : MonoBehaviour
 
     [Header("References")]
     public GameObject buildingBar;
+    public TMP_Text scoreText;
+    public TMP_Text creditsText;
 
     [Header("Prefabs")]
     public GameObject buildIconPref;
 
     private BuildController build;
+    private GameController gm;
 
     private void Awake() {
         build = GetComponent<BuildController>();
+        gm = GetComponent<GameController>();
         PopulateBuildBar();
     }
 
@@ -49,6 +53,11 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateScore();
+    }
+
+    private void UpdateScore() {
+        scoreText.text = gm.GetScore().ToString();
+        creditsText.text = gm.Credits.ToString();
     }
 }

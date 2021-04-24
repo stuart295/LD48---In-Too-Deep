@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void UpdateBuildInput() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButton(0)) {
             build.FinishPlacingBuilding();
         }
         else if (Input.GetMouseButtonDown(1)) {

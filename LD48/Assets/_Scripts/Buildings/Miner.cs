@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Miner : Building
 {
+    public int creditsPerTick = 1; 
+    public float tickDelay = 1f;
 
-    public bool connected;
+    private bool connected;
+    private float lastTick;
+
+    public bool Connected { get => connected;  }
 
     public override bool CanPlace() {
         List<Building> onTopOf = gm.Grid.GetBuildingsAtWorldPos(transform.position);
@@ -18,6 +23,7 @@ public class Miner : Building
         base.FinishPlacing();
         gm.miners.Add(this);
         CheckSPConnection();
+        lastTick = Time.time;
     }
 
     public void CheckSPConnection() {
@@ -56,5 +62,17 @@ public class Miner : Building
         return false;
     }
 
+    public override void Update() {
+        base.Update();
+        UpdateTick();
+    }
 
+    private void UpdateTick() {
+        if (!connected || Time.time - lastTick < tickDelay) return;
+
+        lastTick = Time.time;
+
+        gm.Credits += creditsPerTick;
+        //TODO add effect
+    }
 }
