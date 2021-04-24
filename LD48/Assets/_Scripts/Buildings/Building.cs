@@ -21,6 +21,8 @@ public class Building : MonoBehaviour
     protected Color defaultColor = Color.white;
     protected BuildingSettings settings;
 
+    public bool Placing { get => placing;  }
+
     public virtual void Initialize(GameController gm, BuildingSettings settings) {
         this.gm = gm;
         this.settings = settings;
@@ -91,5 +93,6 @@ public class Building : MonoBehaviour
 
     protected virtual void OnDeath() {
         Debug.Log(gameObject + " destroyed" );
+        gm.Grid.RemoveBuilding(this);
     }
 }

@@ -85,6 +85,21 @@ public class BuildGrid
         }
     }
 
+    internal void RemoveBuilding(Building building) {
+        Vector3Int cellPos = GetGridPos(building.transform.position);
+
+        if (!gridOccupancies.ContainsKey(cellPos)) return;
+
+        List<Building> buildings = gridOccupancies[cellPos];
+        if (buildings.Count > 1) {
+            buildings.Remove(building);
+            gridOccupancies[cellPos] = buildings;
+        }
+        else {
+            gridOccupancies.Remove(cellPos);
+        }
+
+    }
 
     public List<Building> GetAdjacentBuildings(Vector3 worldPos) {
         List<Building> outList = new List<Building>();

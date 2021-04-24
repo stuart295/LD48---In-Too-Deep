@@ -11,4 +11,8 @@ public class Pipe : Building
         gm.RecheckMiners();
     }
 
+    protected override void OnDeath() {
+        base.OnDeath();
+        gm.RecheckMiners();
+    }
 }

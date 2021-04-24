@@ -105,7 +105,7 @@ public class Alien : MonoBehaviour
         if (target) return;
 
         Building building = other.transform.root.GetComponent<Building>();
-        if (building != null) target = building;
+        if (building != null && !building.Placing) target = building;
     }
 
 

@@ -65,7 +65,7 @@ public class Miner : Building
 
     private bool PushAdjacentToStack(Building sourceBuilding, Stack<Building> toVisit, HashSet<Building> visited) {
         foreach (Building building in gm.Grid.GetAdjacentBuildings(sourceBuilding.transform.position)) {
-           if (visited.Contains(building)) continue;
+           if (visited.Contains(building) || building == null || building.gameObject == null) continue;
 
             if (building.tag.Equals("SpacePort")) {
                 connected = true;

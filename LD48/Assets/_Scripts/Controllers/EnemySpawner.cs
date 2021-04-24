@@ -8,12 +8,17 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
 
-    public GameObject enemy1Pref;
+    public GameObject normAlienPref;
+    public GameObject hardAlienPref;
 
     public float beginDelay = 2f;
 
     public AnimationCurve spawnDelay;
-    public AnimationCurve spawnAmount;
+
+    public AnimationCurve normalAlienSpawnAmount;
+    public AnimationCurve hardAlienSpawnAmount;
+
+
     public List<Rect> spawnAreas;
     public float spawnRadius = 5;
     public float minBuildZ = 15f;
@@ -43,23 +48,28 @@ public class EnemySpawner : MonoBehaviour
 
         if (nextSpawnTime <= Time.time) {
             nextSpawnTime = Time.time + spawnDelay.Evaluate(Time.time / gm.timeLimit);
-            SpawnEnemies();
+            SpawnWave();
         }
 
     }
 
-    private void SpawnEnemies() {
+    private void SpawnWave() {
         Debug.Log("Spawning enemies");
         Vector3 spawnPoint = GetSpawnPoint();
         Vector3 destination = new Vector3(Random.Range(-5, 5), 0, spawnPoint.z + Random.Range(-5,5));
 
-        int spawnCount = (int)spawnAmount.Evaluate(Time.time / gm.timeLimit);
+        //Spawn
+        SpawnEnemies(normAlienPref, normalAlienSpawnAmount, spawnPoint, destination);
+        SpawnEnemies(hardAlienPref, hardAlienSpawnAmount, spawnPoint, destination);
+        
+    }
+
+    private void SpawnEnemies(GameObject prefab, AnimationCurve spawnCountCurve, Vector3 spawnPoint, Vector3 destination) {
+        int spawnCount = Mathf.RoundToInt(spawnCountCurve.Evaluate(Time.time / gm.timeLimit));
 
         for (int i = 0; i < spawnCount; i++) {
             Vector2 offset = Random.insideUnitCircle * spawnRadius;
-
-
-            GameObject enemyGo = Instantiate(enemy1Pref, spawnPoint + new Vector3(offset.x,0, offset.y), Quaternion.identity);
+            GameObject enemyGo = Instantiate(prefab, spawnPoint + new Vector3(offset.x, 0, offset.y), Quaternion.identity);
             Alien alien = enemyGo.GetComponent<Alien>();
             alien.Destination = destination;
         }
