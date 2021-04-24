@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 4395318674216081308}
   - component: {fileID: 4395318674216081311}
   - component: {fileID: -4819528918287472951}
+  - component: {fileID: 750232885}
   m_Layer: 0
   m_Name: AutoCannon_1
   m_TagString: Untagged
@@ -325,6 +326,12 @@ MonoBehaviour:
   gridSize: {x: 1, y: 1}
   minable: 0
   health: 3
+  attackRange: 10
+  attackDamage: 1
+  attackDelay: 0.5
+  turret: {fileID: 4395318672890326761}
+  aimSpeed: 15
+  aimThresh: 0.05
 --- !u!54 &-4819528918287472951
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -341,3 +348,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &750232885
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395318674216081309}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}

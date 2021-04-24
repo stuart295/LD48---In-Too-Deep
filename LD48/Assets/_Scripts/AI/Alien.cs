@@ -16,6 +16,9 @@ public class Alien : MonoBehaviour
     public float attackDamage = 1f;
     public float attackCooldown = 1f;
 
+    [Header("Other")]
+    public float health = 1f;
+
     private Vector3 destination = Vector3.zero;
 
     private Building target;
@@ -48,6 +51,20 @@ public class Alien : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, transform.position + dir * moveSpeed, Time.deltaTime);
         LookAt(destination);
 
+    }
+
+    public void TakeDamage(float attackDamage) {
+        health -= attackDamage;
+        Debug.Log(gameObject + " took " + attackDamage + " damage", gameObject);
+        if (health <= 0) {
+            OnDeath();
+            Destroy(gameObject);
+        }
+
+    }
+
+    private void OnDeath() {
+        Debug.Log(gameObject + " died");
     }
 
     private void LookAt(Vector3 position) {

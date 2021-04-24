@@ -50,6 +50,7 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 1
   attackCooldown: 2
+  health: 2
 --- !u!135 &6803286028784173879
 SphereCollider:
   m_ObjectHideFlags: 0
