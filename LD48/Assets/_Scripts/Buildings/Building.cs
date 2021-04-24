@@ -41,6 +41,7 @@ public class Building : MonoBehaviour
 
     public void FinishPlacing() {
         placing = false;
+        gm.Grid.addBuilding(this);
         mainRenderer.material.color = Color.white;
         mainRenderer.material.renderQueue = 3000;
     }

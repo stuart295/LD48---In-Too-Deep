@@ -7,5 +7,6 @@ public class BuildingSettings : ScriptableObject
 {
     public string buildingName;
     public GameObject prefab;
-    //TODO icon
+    public Sprite icon;
+    public int cost;
 }
