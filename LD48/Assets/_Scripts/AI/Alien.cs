@@ -40,11 +40,20 @@ public class Alien : MonoBehaviour
         }
         else {
             MoveToPoint(destination);
+
+            //If reach destination, head to space port
+            if (ReachedPoint(destination)) {
+                Destination = Vector3.zero;
+            }
         }
     }
 
+    private bool ReachedPoint(Vector3 point) {
+        return Vector3.Distance(transform.position, point) < 0.01f;
+    }
+
     private void MoveToPoint(Vector3 destination) {
-        if (Vector3.Distance(transform.position, destination) < 0.01f) return;
+        if (ReachedPoint(destination)) return;
 
         Vector3 dir = (destination - transform.position).normalized;
 

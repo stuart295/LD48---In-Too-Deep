@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -12,6 +13,9 @@ public class UIController : MonoBehaviour
     public GameObject buildingBar;
     public TMP_Text scoreText;
     public TMP_Text creditsText;
+    public TMP_Text timeText;
+    public TMP_Text gameOverText;
+    public GameObject gameOverPanel;
 
     [Header("Prefabs")]
     public GameObject buildIconPref;
@@ -62,6 +66,9 @@ public class UIController : MonoBehaviour
     private void UpdateScore() {
         scoreText.text = gm.GetScore().ToString();
         creditsText.text = gm.Credits.ToString();
+
+        TimeSpan t = TimeSpan.FromSeconds(gm.RemainingTime);
+        timeText.text = string.Format("Storm inbound: {0:D2}:{1:D2}", t.Minutes, t.Seconds);
     }
 
     private void UpdateBuildAvailability() {
@@ -72,4 +79,18 @@ public class UIController : MonoBehaviour
         }
  
     }
+
+    public void ShowGameOver() {
+        gameOverPanel.SetActive(true);
+        gameOverText.text = "Score\n" + gm.GetScore().ToString();
+    }
+
+    public void OnExitClick() {
+        Application.Quit();
+    }
+
+    public void OnRetryClick() {
+        SceneManager.LoadScene(1);
+    }
+
 }

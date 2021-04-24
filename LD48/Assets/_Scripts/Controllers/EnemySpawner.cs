@@ -25,6 +25,8 @@ public class EnemySpawner : MonoBehaviour
     private float nextSpawnTime = 0f;
 
 
+
+
     // Start is called before the first frame update
     void Awake() {
         lastSpawnTime = Time.time;
@@ -46,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemies() {
         Debug.Log("Spawning enemies");
         Vector3 spawnPoint = GetSpawnPoint();
-        Vector3 destination = new Vector3(-1 * spawnPoint.x,0, spawnPoint.z + UnityEngine.Random.Range(-5,5));
+        Vector3 destination = new Vector3(Random.Range(-5, 5), 0, spawnPoint.z + Random.Range(-5,5));
 
         int spawnCount = (int)spawnAmount.Evaluate(Time.time);
 

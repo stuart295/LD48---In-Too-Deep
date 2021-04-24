@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     [Header("Game settings")]
     public int startingCredits = 100;
+    public float timeLimit = 600;
 
     [Header("Grid settings")]
     public Vector2 cellSize = Vector2.one;
@@ -32,18 +33,25 @@ public class GameController : MonoBehaviour
     public HashSet<Miner> miners;
 
     private BuildGrid grid;
-
-    private Building spacePort;
+    private BuildController build;
+    private EnemySpawner spawner;
+    private UIController ui;
     private int credits = 0;
-    private float lastTick = 0;
+    private float remainingTime = 0f;
+    private bool gameOver = false;
 
     public BuildGrid Grid { get => grid;}
     public int Credits { get => credits; set => credits = value; }
+    public float RemainingTime { get => remainingTime; }
+    public bool GameOver { get => gameOver;  }
 
     private void Awake() {
         grid = new BuildGrid();
         miners = new HashSet<Miner>();
-        lastTick = Time.time;
+        remainingTime = timeLimit;
+        build = GetComponent<BuildController>();
+        spawner = GetComponent<EnemySpawner>();
+        ui = GetComponent<UIController>();
     }
 
     // Start is called before the first frame update
@@ -54,7 +62,7 @@ public class GameController : MonoBehaviour
 
     private void PlaceStartingBuildings() {
         //Space port
-        spacePort = SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.prefab.transform.rotation);
+        SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.prefab.transform.rotation);
 
         //Resource deposits
         SpawnBuilding(resourceDepositPref, new Vector3(2, 0, 6) , resourceDepositPref.prefab.transform.rotation);
@@ -93,11 +101,22 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameOver) return;
+
+        UpdateCountdown();
     }
 
-    
+    private void UpdateCountdown() {
+        remainingTime -= Time.deltaTime;
+        if (remainingTime <= 0) OnGameOver();
+    }
 
+    public void OnGameOver() {
+        gameOver = true;
+        build.enabled = false;
+        spawner.enabled = false;
+        ui.ShowGameOver();
+    }
 
     //TODO Switch to check from spaceport outwards
     public void RecheckMiners() {
@@ -133,5 +152,6 @@ public class GameController : MonoBehaviour
         }
         #endif
     }
+
 
 }
