@@ -146,7 +146,7 @@ MonoBehaviour:
   gridSize: {x: 1, y: 1}
   minable: 0
   health: 3
-  creditsPerTick: 1
+  creditsPerTick: 5
   tickDelay: 1
 --- !u!54 &-1427787941181525630
 Rigidbody:

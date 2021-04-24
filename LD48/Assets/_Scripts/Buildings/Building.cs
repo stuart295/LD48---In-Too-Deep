@@ -21,9 +21,11 @@ public class Building : MonoBehaviour
     protected bool placing = false;
     protected GameController gm;
     protected Color defaultColor = Color.white;
+    protected BuildingSettings settings;
 
-    public virtual void Initialize(GameController gm) {
+    public virtual void Initialize(GameController gm, BuildingSettings settings) {
         this.gm = gm;
+        this.settings = settings;
     }
 
     private void Awake() {
@@ -57,6 +59,7 @@ public class Building : MonoBehaviour
     }
 
     public virtual void CancelPlacing() {
+        if (!placing) return;
         placing = false;
         Destroy(gameObject);
     } 
@@ -74,6 +77,8 @@ public class Building : MonoBehaviour
     }
 
     public virtual bool CanPlace() {
+        if (gm.Credits < settings.cost) return false;
+
         return !gm.Grid.IsAreaOccupied(transform.position, gridSize);
     }
 

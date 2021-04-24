@@ -13,6 +13,8 @@ public class Miner : Building
     public bool Connected { get => connected;  }
 
     public override bool CanPlace() {
+        if (gm.Credits < settings.cost) return false;
+
         List<Building> onTopOf = gm.Grid.GetBuildingsAtWorldPos(transform.position);
         if (onTopOf == null || onTopOf.Count != 1) return false;
 

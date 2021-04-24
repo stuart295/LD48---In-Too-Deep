@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7387bc299d4460047b08127ea861140c, type: 3}
-  m_Name: Pipe
+  m_Name: SpacePort
   m_EditorClassIdentifier: 
-  buildingName: Rail Track
-  prefab: {fileID: 8890156332133292163, guid: 649c1567d232ac343a53276be7d74996, type: 3}
-  icon: {fileID: 21300000, guid: c4efba2897f34884fb71dbade9aacb70, type: 3}
-  cost: 10
+  buildingName: Space Port
+  prefab: {fileID: 6163455852967585752, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
+  icon: {fileID: 21300000, guid: 4a517d5fcde3be14aab1085cad0cc34a, type: 3}
+  cost: 50

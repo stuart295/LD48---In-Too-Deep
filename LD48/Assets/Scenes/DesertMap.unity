@@ -753,10 +753,10 @@ MonoBehaviour:
   startingCredits: 100
   cellSize: {x: 1, y: 1}
   cellOffset: {x: 0, y: 0}
-  spacePortPref: {fileID: 6163455852967585752, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
-  resourceDepositPref: {fileID: 1889577124656941680, guid: 82bf728c8e319ea44ab991f384b3fc68, type: 3}
-  minerPref: {fileID: 2351245687050768237, guid: 70173428f3227154f8a25934d9f367c5, type: 3}
-  pipePref: {fileID: 8890156332133292163, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+  spacePortPref: {fileID: 11400000, guid: 7979d89535af88a4486cf6c0396b6ce0, type: 2}
+  resourceDepositPref: {fileID: 11400000, guid: f512a5f2d73a7f047b26624272f2fe8a, type: 2}
+  minerPref: {fileID: 11400000, guid: 0dc2e551ba23abd46a63a7d24c115a63, type: 2}
+  pipePref: {fileID: 11400000, guid: 9e9f780e993f8e842b6e0413a99ad3d3, type: 2}
   totalResources: 10
   resourceSpacingMin: 4
   resourceSpacingMax: 10
@@ -1526,6 +1526,10 @@ PrefabInstance:
     - target: {fileID: 4395318674216081309, guid: 27a58770b46f1864fa8a1474a745fc23, type: 3}
       propertyPath: m_Name
       value: AutoCannon_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395318674216081309, guid: 27a58770b46f1864fa8a1474a745fc23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27a58770b46f1864fa8a1474a745fc23, type: 3}

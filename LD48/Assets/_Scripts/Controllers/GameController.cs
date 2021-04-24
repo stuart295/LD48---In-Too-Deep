@@ -13,11 +13,11 @@ public class GameController : MonoBehaviour
     public Vector2 cellSize = Vector2.one;
     public Vector2 cellOffset = Vector2.zero;
 
-    [Header("Prefabs")]
-    public GameObject spacePortPref;
-    public GameObject resourceDepositPref;
-    public GameObject minerPref;
-    public GameObject pipePref;
+    [Header("Buildings")]
+    public BuildingSettings spacePortPref;
+    public BuildingSettings resourceDepositPref;
+    public BuildingSettings minerPref;
+    public BuildingSettings pipePref;
 
     [Header("Resource layout")]
     public int totalResources = 10;
@@ -54,16 +54,16 @@ public class GameController : MonoBehaviour
 
     private void PlaceStartingBuildings() {
         //Space port
-        spacePort = SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.transform.rotation);
+        spacePort = SpawnBuilding(spacePortPref, Vector3.zero, spacePortPref.prefab.transform.rotation);
 
         //Resource deposits
-        SpawnBuilding(resourceDepositPref, new Vector3(2, 0, 6) , resourceDepositPref.transform.rotation);
-        SpawnBuilding(minerPref, new Vector3(2, 0, 6), minerPref.transform.rotation);
+        SpawnBuilding(resourceDepositPref, new Vector3(2, 0, 6) , resourceDepositPref.prefab.transform.rotation);
+        SpawnBuilding(minerPref, new Vector3(2, 0, 6), minerPref.prefab.transform.rotation);
         SpawnResources();
 
         //Pipes to first resource
         for (int i = 0; i < 4; i++) {
-            SpawnBuilding(pipePref, new Vector3(1, 0, 3 + i), pipePref.transform.rotation);
+            SpawnBuilding(pipePref, new Vector3(1, 0, 3 + i), pipePref.prefab.transform.rotation);
         }
         
     }
@@ -76,15 +76,15 @@ public class GameController : MonoBehaviour
             float horPos = UnityEngine.Random.Range(-resourceHorizontalVariation, resourceHorizontalVariation);
             float vertPos = UnityEngine.Random.Range(curPoint.z + resourceSpacingMin, curPoint.z + resourceSpacingMax);
             curPoint = new Vector3(horPos, 0, vertPos);
-            SpawnBuilding(resourceDepositPref, curPoint, resourceDepositPref.transform.rotation);
+            SpawnBuilding(resourceDepositPref, curPoint, resourceDepositPref.prefab.transform.rotation);
         }
 
     }
 
-    private Building SpawnBuilding(GameObject prefab, Vector3 position, Quaternion rotation) {
-        GameObject buildingGo = Instantiate(prefab, Grid.GetGridPos(position), rotation);
+    private Building SpawnBuilding(BuildingSettings buildingSettings, Vector3 position, Quaternion rotation) {
+        GameObject buildingGo = Instantiate(buildingSettings.prefab, Grid.GetGridPos(position), rotation);
         Building building = buildingGo.GetComponent<Building>();
-        building.Initialize(this);
+        building.Initialize(this, buildingSettings);
         building.FinishPlacing();
         return building;
     }

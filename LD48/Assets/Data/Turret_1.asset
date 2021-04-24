@@ -15,4 +15,4 @@ MonoBehaviour:
   buildingName: Auto Cannon
   prefab: {fileID: 4395318674216081309, guid: 27a58770b46f1864fa8a1474a745fc23, type: 3}
   icon: {fileID: 21300000, guid: 4a517d5fcde3be14aab1085cad0cc34a, type: 3}
-  cost: 100
+  cost: 50

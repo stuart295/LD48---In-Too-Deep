@@ -44,14 +44,16 @@ public class BuildController : MonoBehaviour
     }
 
     public void StartPlacingBuilding(BuildingSettings buildingSettings) {
+        //CancelPlacingBuilding();
         GameObject buildingGo = Instantiate(buildingSettings.prefab);
         currentBuilding = buildingGo.GetComponent<Building>();
-        currentBuilding.Initialize(gm);
+        currentBuilding.Initialize(gm, buildingSettings);
         currentBuilding.StartPlacing();
         currentBuildingSettings = buildingSettings;
     }
 
     public void CancelPlacingBuilding() {
+        if (!currentBuilding) return;
         currentBuilding.CancelPlacing();
         currentBuilding = null;
         currentBuildingSettings = null;
@@ -59,12 +61,18 @@ public class BuildController : MonoBehaviour
 
 
     public void FinishPlacingBuilding() {
-        if (!currentBuilding.CanPlace()) return;
+        if (!CanAfford(currentBuildingSettings) || !currentBuilding.CanPlace()) return;
 
         spawner.furtherestBuildZ = Mathf.Max(spawner.furtherestBuildZ, currentBuilding.transform.position.z);
 
         currentBuilding.FinishPlacing();
+        gm.Credits -= currentBuildingSettings.cost;
+
         StartPlacingBuilding(currentBuildingSettings);
+    }
+
+    private bool CanAfford(BuildingSettings building) {
+        return gm.Credits >= building.cost;
     }
 
 }
