@@ -27,10 +27,8 @@ public class Turret : Building
     }
 
     private void OnTriggerStay(Collider other) {
-        if (target) return;
-
         Alien alien = other.transform.root.GetComponent<Alien>();
-        if (alien != null) target = alien;
+        if (alien != null && (target == null || Vector3.Distance(transform.position, alien.transform.position) < Vector3.Distance(transform.position, target.transform.position))) target = alien;
     }
 
     public override void Update() {

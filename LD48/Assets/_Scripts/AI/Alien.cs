@@ -102,10 +102,11 @@ public class Alien : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other) {
-        if (target) return;
-
         Building building = other.transform.root.GetComponent<Building>();
-        if (building != null && !building.Placing) target = building;
+        if (building != null && !building.Placing) {
+            if (target == null || Vector3.Distance(transform.position, building.transform.position) < Vector3.Distance(transform.position, target.transform.position))
+                target = building;
+        }
     }
 
 

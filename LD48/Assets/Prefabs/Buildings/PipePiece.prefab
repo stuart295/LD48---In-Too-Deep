@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8890156332133292160}
   - component: {fileID: 1124488858}
   - component: {fileID: -5777874277804423543}
+  - component: {fileID: 523820717}
   m_Layer: 0
   m_Name: PipePiece
   m_TagString: Untagged
@@ -49,8 +50,8 @@ MonoBehaviour:
   renderers:
   - {fileID: 7827744014924824085}
   - {fileID: 7827744014308566723}
-  invalidPlacementColor: {r: 1, g: 0, b: 0, a: 0.7490196}
-  placingColor: {r: 1, g: 1, b: 1, a: 0.7490196}
+  invalidPlacementColor: {r: 1, g: 0, b: 0, a: 0.5019608}
+  placingColor: {r: 1, g: 1, b: 1, a: 0.5019608}
   gridSize: {x: 1, y: 1}
   health: 1
   pipeStraight: {fileID: 8620250075025055680}
@@ -71,6 +72,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &523820717
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890156332133292163}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1001 &8890156330160628369
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6163455852967585753}
   - component: {fileID: 3044077067582447512}
   - component: {fileID: 8632499145614677719}
+  - component: {fileID: 1479079377}
   m_Layer: 0
   m_Name: SpacePort
   m_TagString: SpacePort
@@ -67,6 +68,19 @@ MonoBehaviour:
   placingColor: {r: 1, g: 1, b: 1, a: 1}
   gridSize: {x: 3, y: 3}
   health: 10
+--- !u!65 &1479079377
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6163455852967585752}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 2, z: 3}
+  m_Center: {x: 1.04, y: 0.98, z: 1}
 --- !u!1001 &871918309969019977
 PrefabInstance:
   m_ObjectHideFlags: 0
