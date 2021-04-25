@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -22,8 +23,11 @@ public class UIController : MonoBehaviour
 
     private BuildController build;
     private GameController gm;
+    private bool focussed = false;
 
     private Dictionary<BuildingSettings, Button> buildingButtonMap;
+
+    public bool Focussed { get => focussed; }
 
     private void Awake() {
         build = GetComponent<BuildController>();
@@ -49,8 +53,21 @@ public class UIController : MonoBehaviour
             button.onClick.AddListener(() => build.StartPlacingBuilding(buildingSettings));
             buildingButtonMap.Add(buildingSettings, button);
 
+            EventTrigger trigger = iconGo.GetComponent<EventTrigger>();
+
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener((eventData) => { focussed = true; });
+            trigger.triggers.Add(entry);
+
+            entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerExit;
+            entry.callback.AddListener((eventData) => { focussed = false; });
+            trigger.triggers.Add(entry);
+
         }
     }
+
 
     // Start is called before the first frame update
     void Start() {

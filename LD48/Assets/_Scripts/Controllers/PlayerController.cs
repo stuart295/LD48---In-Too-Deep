@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
 
     private GameController gm;
     private BuildController build;
+    private UIController ui;
 
     private void Awake() {
         gm = GetComponent<GameController>();
         build = GetComponent<BuildController>();
+        ui = GetComponent<UIController>();
     }
 
 
@@ -32,7 +34,13 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateBuildInput() {
         if (Input.GetMouseButton(0)) {
-            build.FinishPlacingBuilding();
+            if (ui.Focussed) {
+                build.CancelPlacingBuilding();
+            }
+            else {
+                build.FinishPlacingBuilding();
+            }
+            
         }
         else if (Input.GetMouseButtonDown(1)) {
             build.CancelPlacingBuilding();

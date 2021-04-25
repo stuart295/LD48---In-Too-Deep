@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4112559724301266430}
   - component: {fileID: 4112559724301266429}
   - component: {fileID: 4112559724301266431}
+  - component: {fileID: 8012441095878303363}
   m_Layer: 5
   m_Name: BuildingIcon
   m_TagString: Untagged
@@ -91,6 +92,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8012441095878303363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112559724301266425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &4112559725308518647
 GameObject:
   m_ObjectHideFlags: 0
