@@ -77,7 +77,7 @@ public class Miner : Building
                 return true;
             }
 
-            if (building is Pipe)
+            if (building is Pipe || building is Miner)
                 toVisit.Push(building);
         }
 
