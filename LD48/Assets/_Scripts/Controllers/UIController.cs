@@ -81,7 +81,7 @@ public class UIController : MonoBehaviour
     }
 
     private void UpdateScore() {
-        scoreText.text = gm.Score.ToString();
+        scoreText.text = "Score: " + gm.Score.ToString();
         creditsText.text = gm.Credits.ToString();
 
         TimeSpan t = TimeSpan.FromSeconds(gm.RemainingTime);
