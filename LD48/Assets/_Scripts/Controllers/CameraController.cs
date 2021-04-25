@@ -40,7 +40,10 @@ public class CameraController : MonoBehaviour
     }
 
     private void MoveCamera(Vector2 moveDirection) {
-        Vector3 targPos = transform.position + new Vector3(moveDirection.x, 0f, moveDirection.y) ;
+        Vector3 transformedDir = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * new Vector3(moveDirection.x, 0, moveDirection.y) ;
+      
+
+        Vector3 targPos = transform.position + transformedDir;
         float height = targPos.y;
         targPos = Vector3.Max(minBoundary, Vector3.Min(maxBoundary, targPos));
         targPos.y = height;
