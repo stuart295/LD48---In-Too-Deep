@@ -34,7 +34,7 @@ public class Turret : Building
     }
 
     public override void Update() {
-        if (gm.GameOver || placing) return;
+        if (!gm || gm.GameOver || placing) return;
         base.Update();
         UpdateAttack();
     }
