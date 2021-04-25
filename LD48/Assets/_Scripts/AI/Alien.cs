@@ -18,6 +18,8 @@ public class Alien : MonoBehaviour
 
     [Header("Other")]
     public float health = 1f;
+    public Animator anim;
+    public GameObject deathEffect;
 
     private Vector3 destination = Vector3.zero;
 
@@ -46,19 +48,28 @@ public class Alien : MonoBehaviour
                 Destination = Vector3.zero;
             }
         }
+
     }
 
     private bool ReachedPoint(Vector3 point) {
         return Vector3.Distance(transform.position, point) < 0.01f;
     }
 
+    private void SetMovingAnim(bool moving = true) {
+        anim.SetBool("Moving", moving);
+    }
+
     private void MoveToPoint(Vector3 destination) {
-        if (ReachedPoint(destination)) return;
+        if (ReachedPoint(destination)) {
+            SetMovingAnim(false);
+            return;
+        }
 
         Vector3 dir = (destination - transform.position).normalized;
 
         transform.position = Vector3.Lerp(transform.position, transform.position + dir * moveSpeed, Time.deltaTime);
         LookAt(destination);
+        SetMovingAnim(true);
 
     }
 
@@ -74,6 +85,7 @@ public class Alien : MonoBehaviour
 
     private void OnDeath() {
         Debug.Log(gameObject + " died");
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
     }
 
     private void LookAt(Vector3 position) {
@@ -94,6 +106,7 @@ public class Alien : MonoBehaviour
                 lastAttackTime = Time.time;
                 target.TakeDamage(attackDamage);
             }
+            SetMovingAnim(false);
         }
         else {
             MoveToPoint(target.transform.position);

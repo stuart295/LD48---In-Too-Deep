@@ -55,8 +55,6 @@ public class Turret : Building
         target.TakeDamage(attackDamage);
         lastAttackTime = Time.time;
 
-        //TODO effects
-
     }
 
     private bool FollowTarget() {
