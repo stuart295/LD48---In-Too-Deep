@@ -136,6 +136,7 @@ public class GameController : MonoBehaviour
     }
 
     public void OnGameOver() {
+        if (gameOver) return;
         gameOver = true;
         build.enabled = false;
         spawner.enabled = false;

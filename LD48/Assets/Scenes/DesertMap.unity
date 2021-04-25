@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingCredits: 100
-  timeLimit: 300
+  timeLimit: 600
   cellSize: {x: 1, y: 1}
   cellOffset: {x: 0, y: 0}
   spacePortPref: {fileID: 11400000, guid: 7979d89535af88a4486cf6c0396b6ce0, type: 2}
@@ -1765,24 +1765,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: 160, z: 0}
---- !u!1 &1479079376 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6163455852967585752, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
-  m_PrefabInstance: {fileID: 6163455853047064564}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1479079377
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479079376}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3, y: 2, z: 3}
-  m_Center: {x: 1.04, y: 0.98, z: 1}
 --- !u!1 &1552174023
 GameObject:
   m_ObjectHideFlags: 0
@@ -2792,7 +2774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6163455852967585752, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6163455852967585753, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
       propertyPath: m_RootOrder
