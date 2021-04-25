@@ -30,8 +30,10 @@ public class Building : MonoBehaviour
     }
 
     private void Awake() {
+        defaultColors = new List<Color>();
         foreach (Renderer r in renderers) {
-            defaultColors.Add(r.material.color);
+            if (defaultColors != null)
+                defaultColors.Add(r.material.color);
         }
     }
 
@@ -52,8 +54,10 @@ public class Building : MonoBehaviour
         placing = true;
 
         foreach (Renderer r in renderers) {
-            r.material.color = placingColor;
-            r.material.renderQueue = 3050;
+            if (r.material) {
+                r.material.color = placingColor;
+                r.material.renderQueue = 3050;
+            }
         }
     }
 
@@ -62,8 +66,11 @@ public class Building : MonoBehaviour
         gm.Grid.addBuilding(this);
         for (int i = 0; i < renderers.Count; i++) {
             Renderer r = renderers[i];
-            r.material.color = defaultColors[i];
-            r.material.renderQueue = 3000;
+            if (defaultColors != null) {
+                r.material.color = defaultColors[i];
+                r.material.renderQueue = 3000;
+                
+            }
         }
     }
 

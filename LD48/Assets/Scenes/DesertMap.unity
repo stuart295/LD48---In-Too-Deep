@@ -1359,7 +1359,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2772,10 +2772,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8632499145614677719, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
-      propertyPath: invalidPlacementColor.a
-      value: 0.6509804
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaf582be33349fb488ac94a1d268a9a8, type: 3}
 --- !u!1001 &6803286030664598416
@@ -2968,6 +2964,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1124488858, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+      propertyPath: placingColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124488858, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+      propertyPath: invalidPlacementColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7827744014924824085, guid: 649c1567d232ac343a53276be7d74996, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8890156332133292160, guid: 649c1567d232ac343a53276be7d74996, type: 3}
       propertyPath: m_RootOrder
       value: 5
