@@ -5,6 +5,7 @@ using UnityEngine;
 public class Miner : Building
 {
     public float tickDelay = 1f;
+    public GameObject effect;
 
     private bool connected;
     private float lastTick;
@@ -62,6 +63,7 @@ public class Miner : Building
         }
 
         connected = false;
+        effect.SetActive(false);
 
     }
 
@@ -71,6 +73,7 @@ public class Miner : Building
 
             if (building.tag.Equals("SpacePort")) {
                 connected = true;
+                effect.SetActive(true);
                 return true;
             }
 
