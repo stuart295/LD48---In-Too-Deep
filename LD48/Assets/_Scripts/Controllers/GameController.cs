@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     private EnemySpawner spawner;
     private UIController ui;
     private int credits = 0;
+    private int score = 0;
     private float remainingTime = 0f;
     private bool gameOver = false;
 
@@ -52,6 +53,7 @@ public class GameController : MonoBehaviour
     public int Credits { get => credits; set => credits = value; }
     public float RemainingTime { get => remainingTime; }
     public bool GameOver { get => gameOver;  }
+    public int Score { get => score; set => score = value; }
 
     private void Awake() {
         grid = new BuildGrid();
@@ -151,14 +153,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public int GetScore() {
-        int score = 0;
-        foreach (Resource resource in resources) {
-            Miner miner = resource.miner;
-            if (miner != null && miner.Connected) score += resource.scoreValue ;
-        }
-        return score;
-    }
+    //public int GetScore() {
+    //    int score = 0;
+    //    foreach (Resource resource in resources) {
+    //        Miner miner = resource.miner;
+    //        if (miner != null && miner.Connected) score += resource.scoreValue ;
+    //    }
+    //    return score;
+    //}
 
     private void OnDrawGizmos() {
         #if UNITY_EDITOR

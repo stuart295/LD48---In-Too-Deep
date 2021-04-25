@@ -96,6 +96,7 @@ public class Miner : Building
         lastTick = Time.time;
 
         gm.Credits += resource.creditsPerTick;
+        gm.Score += resource.scoreValue;
         //TODO add effect
     }
 

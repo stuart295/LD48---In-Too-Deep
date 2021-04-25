@@ -64,7 +64,7 @@ public class UIController : MonoBehaviour
     }
 
     private void UpdateScore() {
-        scoreText.text = gm.GetScore().ToString();
+        scoreText.text = gm.Score.ToString();
         creditsText.text = gm.Credits.ToString();
 
         TimeSpan t = TimeSpan.FromSeconds(gm.RemainingTime);
@@ -82,7 +82,7 @@ public class UIController : MonoBehaviour
 
     public void ShowGameOver() {
         gameOverPanel.SetActive(true);
-        gameOverText.text = "Score\n" + gm.GetScore().ToString();
+        gameOverText.text = "Score\n" + gm.Score.ToString();
     }
 
     public void OnExitClick() {
