@@ -41,6 +41,8 @@ public class Miner : Building
         gm.resources.Add(resource);
         CheckSPConnection();
         lastTick = Time.time;
+
+        UpdateAdjacentPipes();
     }
 
     public void CheckSPConnection() {
@@ -97,5 +99,6 @@ public class Miner : Building
     protected override void OnDeath() {
         base.OnDeath();
         gm.resources.Remove(resource);
+        UpdateAdjacentPipes();
     }
 }

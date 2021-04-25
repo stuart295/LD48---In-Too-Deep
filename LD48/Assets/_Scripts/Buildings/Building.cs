@@ -6,7 +6,8 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     [Header("Visuals")]
-    public Renderer mainRenderer;
+    //public Renderer mainRenderer;
+    public List<Renderer> renderers;
     public Color invalidPlacementColor = Color.red;
     public Color placingColor = Color.white;
 
@@ -18,7 +19,7 @@ public class Building : MonoBehaviour
 
     protected bool placing = false;
     protected GameController gm;
-    protected Color defaultColor = Color.white;
+    protected List<Color> defaultColors;
     protected BuildingSettings settings;
 
     public bool Placing { get => placing;  }
@@ -29,7 +30,9 @@ public class Building : MonoBehaviour
     }
 
     private void Awake() {
-        defaultColor = mainRenderer.material.color;
+        foreach (Renderer r in renderers) {
+            defaultColors.Add(r.material.color);
+        }
     }
 
     // Start is called before the first frame update
@@ -47,15 +50,21 @@ public class Building : MonoBehaviour
 
     public virtual void StartPlacing() {
         placing = true;
-        mainRenderer.material.color = placingColor;
-        mainRenderer.material.renderQueue = 3050;
+
+        foreach (Renderer r in renderers) {
+            r.material.color = placingColor;
+            r.material.renderQueue = 3050;
+        }
     }
 
     public virtual void FinishPlacing() {
         placing = false;
         gm.Grid.addBuilding(this);
-        mainRenderer.material.color = defaultColor;
-        mainRenderer.material.renderQueue = 3000;
+        for (int i = 0; i < renderers.Count; i++) {
+            Renderer r = renderers[i];
+            r.material.color = defaultColors[i];
+            r.material.renderQueue = 3000;
+        }
     }
 
     public virtual void CancelPlacing() {
@@ -64,16 +73,27 @@ public class Building : MonoBehaviour
         Destroy(gameObject);
     } 
 
-    public void UpdatePlacement(Vector3 position) {
+    public virtual void UpdatePlacement(Vector3 position) {
         transform.position = position;
 
         if (CanPlace()) {
-            mainRenderer.material.color = placingColor;
+            foreach (Renderer r in renderers) {
+                r.material.color = placingColor;
+            }
         }
         else {
-            mainRenderer.material.color = invalidPlacementColor;
+            foreach (Renderer r in renderers) {
+                r.material.color = invalidPlacementColor;
+            }
         }
 
+    }
+
+    protected virtual void UpdateAdjacentPipes() {
+        List<Building> adjacent = gm.Grid.GetAdjacentBuildings(transform.position);
+        foreach (Building b in adjacent) {
+            if (b is Pipe) ((Pipe)b).UpdatePieceType();
+        }
     }
 
     public virtual bool CanPlace() {
