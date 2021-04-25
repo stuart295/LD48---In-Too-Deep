@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class PlayerController : MonoBehaviour
             UpdateBuildInput();
         }
 
+        //Exit
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            SceneManager.LoadScene(0);
+        }
+
     }
 
     private void UpdateBuildInput() {
@@ -45,5 +51,8 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetMouseButtonDown(1)) {
             build.CancelPlacingBuilding();
         }
+
+        
+
     }
 }
