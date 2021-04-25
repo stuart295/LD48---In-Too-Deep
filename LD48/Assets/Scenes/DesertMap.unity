@@ -2438,7 +2438,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1889577124656941680, guid: 82bf728c8e319ea44ab991f384b3fc68, type: 3}
       propertyPath: m_Name
-      value: ResourceDeposit
+      value: CreditDeposit
       objectReference: {fileID: 0}
     - target: {fileID: 1889577124656941680, guid: 82bf728c8e319ea44ab991f384b3fc68, type: 3}
       propertyPath: m_IsActive
