@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Rail Track
   prefab: {fileID: 8890156332133292163, guid: 649c1567d232ac343a53276be7d74996, type: 3}
-  icon: {fileID: 21300000, guid: c4efba2897f34884fb71dbade9aacb70, type: 3}
+  icon: {fileID: 21300000, guid: ad280f45bda09e9408e7e204ee37dbcf, type: 3}
   cost: 10

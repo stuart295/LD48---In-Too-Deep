@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Miner
   prefab: {fileID: 2351245687050768237, guid: 70173428f3227154f8a25934d9f367c5, type: 3}
-  icon: {fileID: 21300000, guid: 528501adc3e36f34a9194575eaacf998, type: 3}
+  icon: {fileID: 21300000, guid: 9faf92e76e81bd047b47fff37b91b1fb, type: 3}
   cost: 80
