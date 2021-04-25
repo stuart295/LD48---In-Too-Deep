@@ -1109,9 +1109,9 @@ MonoBehaviour:
   scoreResourceSpacingMin: 2
   scoreResourceSpacingMax: 10
   totalCreditResources: 50
-  creditResourceSpacingMin: 15
-  creditResourceSpacingMax: 30
-  resourceHorizontalVariation: 20
+  creditResourceSpacingMin: 10
+  creditResourceSpacingMax: 25
+  resourceHorizontalVariation: 15
   debugMode: 1
 --- !u!4 &976097167
 Transform:

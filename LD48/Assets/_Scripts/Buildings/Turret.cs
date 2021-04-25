@@ -13,8 +13,10 @@ public class Turret : Building
 
     [Header("Turret settings")]
     public GameObject turret;
+    public ParticleSystem muzzleFlash;
     public float aimSpeed = 1f;
     public float aimThresh = 0.05f;
+
 
 
     private Alien target;
@@ -49,6 +51,7 @@ public class Turret : Building
 
         if (!aiming || Time.time - lastAttackTime < attackDelay) return;
 
+        muzzleFlash.Play(true);
         target.TakeDamage(attackDamage);
         lastAttackTime = Time.time;
 
